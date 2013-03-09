@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>J.Sakamoto</authors>
+    <owners>J.Sakamoto</owners>
+    <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx#MPL</licenseUrl>
+    <projectUrl>https://github.com/jsakamoto/CacheableContentResult</projectUrl>
+    <!--
+    <iconUrl/>
+    -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>AspNet,asp.net,mvc,mvc3,mvc4,actionresult</tags>
+    <description>
+      This ActionResult class for ASP.NET MVC allows you to respond binary contents which cntrolled web browser cache based on Etag, last modified date./ この ASP.NET MVC ActionResult クラスは Etag および 最終更新日に基づくブラウザキャッシュで制御されるコンテンツを返すことができます。
+    </description>
+    <releaseNotes>
+      <![CDATA[
+    ]]>
+    </releaseNotes>
+  </metadata>
+</package>
