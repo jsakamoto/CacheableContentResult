@@ -22,7 +22,7 @@ You can install this libray as a NuGet package into your ASP.NET MVC Web Applict
 Visual Studio 上の ASP.NET MVC Web アプリケーションに NuGet パッケージとして NuGet.org 経由でインストールできます。
 
 ```
-PM>Install-Package CachebleContentResult
+PM>Install-Package CacheableContentResult
 ```
 
 ## How to use? / 使い方
