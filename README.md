@@ -1,4 +1,4 @@
-CacheableContentResult
+CacheableContentResult [![NuGet Package](https://img.shields.io/nuget/v/CacheableContentResult.svg)](https://www.nuget.org/packages/CacheableContentResult/)
 ======================
 
 ## What's this? / これは何か?
