@@ -17,7 +17,11 @@
       This ActionResult class for ASP.NET MVC allows you to respond binary contents which cntrolled web browser cache based on Etag, last modified date, and respond HTTP 304 Not Modified if cache hit./ この ASP.NET MVC ActionResult クラスは Etag および 最終更新日に基づくブラウザキャッシュで制御されるコンテンツを返すことができ、キャッシュにヒットする場合は HTTP 304 Not Modified を返します。
     </description>
     <releaseNotes>
-      <![CDATA[
+    <![CDATA[
+    v.1.1.0
+    - If the function of GetContent property returned null, then respond "HTTP 404 Not Found" status.
+    v.1.0.0
+    - 1st release.
     ]]>
     </releaseNotes>
   </metadata>

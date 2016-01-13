@@ -18,6 +18,10 @@ namespace Toolbelt.Web
 
         public string ContentType { get; set; }
 
+        /// <summary>
+        /// Get or set the function that return content bytes, called lazy if needed.
+        /// <para>If this function returned null, then this action result respond HTTP 404 Not Found status.</para>
+        /// </summary>
         public Func<byte[]> GetContent { get; set; }
 
         public DateTime? LastModified { get; set; }
@@ -71,7 +75,9 @@ namespace Toolbelt.Web
             }
             else
             {
-                response.BinaryWrite(this.GetContent());
+                var contentBytes = this.GetContent();
+                if (contentBytes == null) response.StatusCode = 404; // HTTP 404 Not Found
+                else response.BinaryWrite(contentBytes);
             }
         }
     }
