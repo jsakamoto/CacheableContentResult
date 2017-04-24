@@ -2,23 +2,25 @@
 <package >
   <metadata>
     <id>CacheableContentResult</id>
-    <version>1.1.1.0</version>
+    <version>1.1.2.0</version>
     <title>CacheableContentResult</title>
     <authors>J.Sakamoto</authors>
     <owners>J.Sakamoto</owners>
-    <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx#MPL</licenseUrl>
+    <licenseUrl>https://github.com/jsakamoto/CacheableContentResult/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/jsakamoto/CacheableContentResult</projectUrl>
     <!--
     <iconUrl/>
     -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>AspNet,asp.net,mvc,mvc3,mvc4,actionresult</tags>
+    <tags>AspNet,asp.net,mvc,mvc3,mvc4,mvc5,actionresult,aspnetcore,aspnetcoremvc</tags>
     <summary>ASP.NET MVC Action result for cacheable content.</summary>
     <description>
       This ActionResult class for ASP.NET MVC allows you to send a binary contents response that can cache based on Etag, and/or last modified date, to web browser. If the cache hit, this class send "HTTP 304 Not Modified" without calling contents retrieving callback. / この ASP.NET MVC ActionResult クラスは Etag および 最終更新日に基づくブラウザキャッシュで制御されるコンテンツを返すことができ、キャッシュにヒットする場合は HTTP 304 Not Modified を返します。
     </description>
     <releaseNotes>
       <![CDATA[
+      v.1.1.2
+      - Update license - MPL v2 and MS-PL dual licenses.
       v.1.1.1
       - Add .NET Core applications support.
       - Fix: "If-Modified-Since" based cache doesn't work correctly.

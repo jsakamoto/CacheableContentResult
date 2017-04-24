@@ -58,16 +58,11 @@ MVC アクションメソッド内で、ETag、および/あるいは最終更�
 
 例は [こちら](https://github.com/jsakamoto/CacheableContentResult/blob/master/SampleSite/Controllers/UserprofileCOntroller.cs#L21) を参照ください。
 
+## License / ライセンス
 
+[Mozilla Public License Version 2.0](LICENSE) / [Microsoft Public License (MS-PL)](https://opensource.org/licenses/MS-PL)
 
-
-
-
-
-
-
-
-
+(* dual license )
 
 
 
