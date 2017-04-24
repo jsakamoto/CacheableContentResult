@@ -5,9 +5,9 @@ CacheableContentResult [![NuGet Package](https://img.shields.io/nuget/v/Cacheabl
 
 This is the class library that is ActionResult of ASP.NET MVC .
 
-This ActionResult class can respond the any binary content to web browser with cache controll based on Etag and "last modified date". 
+This ActionResult class for ASP.NET MVC allows you to send a binary contents response that can cache based on Etag, and/or last modified date, to web browser. 
 
-This class respond HTTP 304 Not Modified to web browser without content body if detect cache hit in If-Modified-Since and If-Match-None request header.
+If the cache hit, then this class send "HTTP 304 Not Modified" without calling contents retrieving callback, and witout content body.
 
 これは ASP.NET MVC の ActonResult であるクラスライブラリです。
 
@@ -22,10 +22,29 @@ You can install this libray as a NuGet package into your ASP.NET MVC Web Applict
 Visual Studio 上の ASP.NET MVC Web アプリケーションに NuGet パッケージとして NuGet.org 経由でインストールできます。
 
 ```
-PM>Install-Package CacheableContentResult
+PM> Install-Package CacheableContentResult
 ```
 
 ## How to use? / 使い方
+
+```csharp
+public ActionResult Picture(int id)
+{
+  var imagePath = HttpContext.Server.MapPath("~/App_Data/user/{id}/picture.png");
+  var lastWriteTime = System.IO.File.GetLastWriteTimeUtc(imagePath);
+
+  return new CacheableContentResult(
+    contentType: "image/png",
+    lastModified: lastWriteTime,
+    getContent: () =>
+    {
+      return System.IO.File.ReadAllBytes(imagePath);
+    }
+  );
+}
+```
+
+![movie](./.asset/movie001.gif)
 
 Return the instance of CachebleContentResult class in MVC action method specified with ETag, and/or the date time of last modified, and the function which return the binary content as byte[] to responding you want.
 
