@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace Toolbelt.Web
 {
+#if !NETCORE
+    using System.Web;
+    using System.Web.Mvc;
+    using Context = System.Web.Mvc.ControllerContext;
+    using Cacheability = System.Web.HttpCacheability;
+#else
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Context = Microsoft.AspNetCore.Mvc.ActionContext;
+    using Cacheability = Microsoft.AspNetCore.Mvc.ResponseCacheLocation;
+#endif
+
     public class CacheableContentResult : ActionResult
     {
         private enum CacheHint
@@ -28,37 +36,41 @@ namespace Toolbelt.Web
 
         public string ETag { get; set; }
 
-        public HttpCacheability? Cacheability { get; set; }
+        public Cacheability? Cacheability { get; set; }
 
-        public CacheableContentResult(string contentType, Func<byte[]> getContent, DateTime? lastModified = null, string etag = null, HttpCacheability? cacheability = null)
+        private CacheableContentResult(string contentType, DateTime? lastModified, string etag, Cacheability? cacheability)
         {
             this.ContentType = contentType;
-            this.GetContent = getContent;
             this.LastModified = lastModified;
             this.ETag = etag ?? "";
             this.Cacheability = cacheability;
         }
 
-        public override void ExecuteResult(ControllerContext context)
+        public CacheableContentResult(string contentType, Func<byte[]> getContent, DateTime? lastModified = null, string etag = null, Cacheability? cacheability = null)
+            : this(contentType, lastModified, etag, cacheability)
+        {
+            this.GetContent = getContent;
+        }
+
+        private bool RespondNotModified(Context context)
         {
             var request = context.HttpContext.Request;
             var response = context.HttpContext.Response;
 
             response.ContentType = this.ContentType;
             if (this.Cacheability.HasValue)
-                response.Cache.SetCacheability(this.Cacheability.Value);
-
+                response.Headers.Add("Cache-Control", this.Cacheability.Value.ToCacheControlString());
             if (this.LastModified.HasValue)
-                response.Cache.SetLastModified(this.LastModified.Value);
+                response.Headers.Add("Last-Modified", this.LastModified.Value.ToUniversalTime().ToString("R"));
             if (string.IsNullOrWhiteSpace(this.ETag) == false)
-                response.Cache.SetETag(this.ETag);
+                response.Headers.Add("ETag", this.ETag);
 
             var cacheHintByDate = CacheHint.None;
             var ifModSinceStr = request.Headers["If-Modified-Since"];
-            var ifModSince = default(DateTime);
-            if (this.LastModified.HasValue && DateTime.TryParse(ifModSinceStr, out ifModSince))
+            if (this.LastModified.HasValue && DateTime.TryParse(ifModSinceStr, out var ifModSince))
             {
-                cacheHintByDate = (this.LastModified.Value - ifModSince).Seconds <= 0 ? CacheHint.Hit : CacheHint.Miss;
+                var timeDiff = Math.Abs((ifModSince.ToUniversalTime() - this.LastModified.Value.ToUniversalTime()).TotalSeconds);
+                cacheHintByDate = timeDiff < 1.0 ? CacheHint.Hit : CacheHint.Miss;
             }
 
             var cacheHintByETag = CacheHint.None;
@@ -72,13 +84,70 @@ namespace Toolbelt.Web
             if (cacheHints.Contains(CacheHint.Hit) && !cacheHints.Contains(CacheHint.Miss))
             {
                 response.StatusCode = 304; // HTTP 304 Not Modified
+                return true;
+            }
+            return false;
+        }
+
+#if !NETCORE
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (this.RespondNotModified(context)) return;
+
+            var response = context.HttpContext.Response;
+            var contentBytes = this.GetContent();
+            if (contentBytes == null)
+            {
+                response.StatusCode = 404; // HTTP 404 Not Found
             }
             else
             {
-                var contentBytes = this.GetContent();
-                if (contentBytes == null) response.StatusCode = 404; // HTTP 404 Not Found
-                else response.BinaryWrite(contentBytes);
+                response.BinaryWrite(contentBytes);
             }
         }
+#else
+        public Func<Task<byte[]>> GetContentAsync { get; set; }
+
+        public CacheableContentResult(string contentType, Func<Task<byte[]>> getContentAsync, DateTime? lastModified = null, string etag = null, Cacheability? cacheability = null)
+            : this(contentType, lastModified, etag, cacheability)
+        {
+            this.GetContentAsync = getContentAsync;
+        }
+
+        public override Task ExecuteResultAsync(ActionContext context)
+        {
+            if (this.GetContent == null && this.GetContentAsync == null)
+            {
+                return base.ExecuteResultAsync(context);
+            }
+            else
+            {
+                return ExecuteResultAsyncCore(context);
+            }
+        }
+
+        private async Task ExecuteResultAsyncCore(ActionContext context)
+        {
+            if (this.RespondNotModified(context)) return;
+
+            var contentBytes = default(byte[]);
+            if (this.GetContent != null)
+            {
+                contentBytes = this.GetContent();
+            }
+            else
+            {
+                contentBytes = await this.GetContentAsync();
+            }
+
+            var response = context.HttpContext.Response;
+            if (contentBytes == null)
+            {
+                response.StatusCode = 404; // HTTP 404 Not Found
+                return;
+            }
+            await response.Body.WriteAsync(contentBytes, 0, contentBytes.Length);
+        }
+#endif
     }
 }
