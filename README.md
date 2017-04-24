@@ -50,13 +50,13 @@ Return the instance of CachebleContentResult class in MVC action method specifie
 
 The function which return the content you specified does not call if not needed, then you can implement "lazy loading".
 
-See the [example](https://github.com/jsakamoto/CacheableContentResult/blob/master/SampleSite/Controllers/HomeController.cs#L18).
+See the [example](https://github.com/jsakamoto/CacheableContentResult/blob/master/SampleSite/Controllers/UserprofileCOntroller.cs#L21).
 
 MVC アクションメソッド内で、ETag、および/あるいは最終更新日、そして応答に返したいバイナリコンテンツを byte[] で返す関数を指定した CachebleContentResult クラスのインスタンスを返します。
 
 必要となるまでコンテンツを返す関数は呼び出されませんので、遅延読み込みが実装できます。
 
-例は [こちら](https://github.com/jsakamoto/CacheableContentResult/blob/master/SampleSite/Controllers/HomeController.cs#L18) を参照ください。
+例は [こちら](https://github.com/jsakamoto/CacheableContentResult/blob/master/SampleSite/Controllers/UserprofileCOntroller.cs#L21) を参照ください。
 
 
 
