@@ -1,100 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Toolbelt.Web</RootNamespace>
+    <TargetFrameworks>netstandard1.6;net40</TargetFrameworks>
     <AssemblyName>CacheableContentResult</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <RootNamespace>Toolbelt.Web</RootNamespace>
+    <Copyright>Copyright (C) J.Sakamoto 2013-2018 - Mozilla Public License (MPL) Version 2.0 / Microsoft Public License (MS-PL)</Copyright>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.1.2</Version>
+    <PackageLicenseUrl>https://github.com/jsakamoto/CacheableContentResult/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jsakamoto/CacheableContentResult/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jsakamoto/CacheableContentResult/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>AspNet,asp.net,mvc,mvc3,mvc4,mvc5,actionresult,aspnetcore,aspnetcoremvc</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <Description>This ActionResult class for ASP.NET MVC allows you to send a binary contents response that can cache based on Etag, and/or last modified date, to web browser. If the cache hit, this class send "HTTP 304 Not Modified" without calling contents retrieving callback. / この ASP.NET MVC ActionResult クラスは Etag および 最終更新日に基づくブラウザキャッシュで制御されるコンテンツを返すことができ、キャッシュにヒットする場合は HTTP 304 Not Modified を返します。</Description>
+    <Authors>J.Sakamoto</Authors>
+    <PackageReleaseNotes>v.1.1.2
+- Update license - MPL v2 and MS-PL dual licenses.
+v.1.1.1
+- Add .NET Core applications support.
+- Fix: "If-Modified-Since" based cache doesn't work correctly.
+v.1.1.0
+- If the function of GetContent property returned null, then respond "HTTP 404 Not Found" status.
+v.1.0.0
+- 1st release.
+</PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|netstandard1.6'">
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\CacheableContentResult.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|netstandard1.6'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net40'">
+    <DefineConstants>TRACE;RELEASE;</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net40'">
+    <DefineConstants>TRACE;DEBUG;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="3.0.20105.1" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CacheabilityExteinsion.cs" />
-    <Compile Include="CacheableContentResult.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CacheableContentResult.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" goto PACK
-goto END
-:PACK
-pushd "$(ProjectDir)"
-"$(SolutionDir).nuget\nuget.exe" pack "$(ProjectName).nuspec" -o $(OutDir)
-:END</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

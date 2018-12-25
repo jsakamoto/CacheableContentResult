@@ -1,29 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2C966DCC-ACC1-4889-A050-14AC20D7416D}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSite", "SampleSite\SampleSite.csproj", "{2367628A-053B-4A36-AEE6-930BB91A7A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheableContentResult", "CacheableContentResult\CacheableContentResult.csproj", "{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{596EA8E2-BC26-47C6-88D3-F4341D7EC852} = {596EA8E2-BC26-47C6-88D3-F4341D7EC852}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheableContentResult.Core", "CacheableContentResult.Core\CacheableContentResult.Core.csproj", "{596EA8E2-BC26-47C6-88D3-F4341D7EC852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheableContentResult", "CacheableContentResult\CacheableContentResult.csproj", "{596EA8E2-BC26-47C6-88D3-F4341D7EC852}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{0F58B22A-EE5A-4241-888E-9A78997B7399}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreSampleSite", "AspNetCoreSampleSite\AspNetCoreSampleSite.csproj", "{92578125-3354-4951-962B-07F935A02D94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleSites", "SampleSites", "{26C7350E-F567-4150-B17C-9826E7E55767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,16 +27,23 @@ Global
 		{2367628A-053B-4A36-AEE6-930BB91A7A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2367628A-053B-4A36-AEE6-930BB91A7A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2367628A-053B-4A36-AEE6-930BB91A7A16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7B0C20A-B313-44E9-99B4-CC3DDCBE18C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{596EA8E2-BC26-47C6-88D3-F4341D7EC852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{596EA8E2-BC26-47C6-88D3-F4341D7EC852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{596EA8E2-BC26-47C6-88D3-F4341D7EC852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{596EA8E2-BC26-47C6-88D3-F4341D7EC852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92578125-3354-4951-962B-07F935A02D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92578125-3354-4951-962B-07F935A02D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92578125-3354-4951-962B-07F935A02D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92578125-3354-4951-962B-07F935A02D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2367628A-053B-4A36-AEE6-930BB91A7A16} = {26C7350E-F567-4150-B17C-9826E7E55767}
+		{92578125-3354-4951-962B-07F935A02D94} = {26C7350E-F567-4150-B17C-9826E7E55767}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AC93DDF-2CD5-4430-BC07-6F6C6C0813CC}
 	EndGlobalSection
 EndGlobal

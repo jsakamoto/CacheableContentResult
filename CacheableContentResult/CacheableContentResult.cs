@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Toolbelt.Web
 {
-#if !NETCORE
+#if !NETSTANDARD
     using System.Web;
     using System.Web.Mvc;
     using Context = System.Web.Mvc.ControllerContext;
@@ -89,7 +89,7 @@ namespace Toolbelt.Web
             return false;
         }
 
-#if !NETCORE
+#if !NETSTANDARD
         public override void ExecuteResult(ControllerContext context)
         {
             if (this.RespondNotModified(context)) return;
