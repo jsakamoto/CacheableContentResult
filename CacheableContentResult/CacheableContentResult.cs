@@ -59,7 +59,12 @@ namespace Toolbelt.Web
 
             response.ContentType = this.ContentType;
             if (this.Cacheability.HasValue)
-                response.Headers.Add("Cache-Control", this.Cacheability.Value.ToCacheControlString());
+                response.Headers["Cache-Control"] = this.Cacheability.Value.ToCacheControlString();
+#if NETSTANDARD
+            else if (response.Headers.TryGetValue("Cache-Control", out var values) && values.Contains("no-store"))
+                response.Headers["Cache-Control"] = "no-cache";
+#endif
+
             if (this.LastModified.HasValue)
                 response.Headers.Add("Last-Modified", this.LastModified.Value.ToUniversalTime().ToString("R"));
             if (string.IsNullOrWhiteSpace(this.ETag) == false)

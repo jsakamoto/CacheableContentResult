@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSite", "SampleSite\SampleSite.csproj", "{2367628A-053B-4A36-AEE6-930BB91A7A16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetSampleSite", "SampleSite\AspNetSampleSite.csproj", "{2367628A-053B-4A36-AEE6-930BB91A7A16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheableContentResult", "CacheableContentResult\CacheableContentResult.csproj", "{596EA8E2-BC26-47C6-88D3-F4341D7EC852}"
 EndProject

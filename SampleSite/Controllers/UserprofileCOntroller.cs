@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Toolbelt.Web;
 
-namespace SampleSite.Controllers
+namespace AspNetSampleSite.Controllers
 {
     public class UserprofileController : Controller
     {
@@ -12,7 +13,7 @@ namespace SampleSite.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet, OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult Picture(int id)
         {
             var imagePath = HttpContext.Server.MapPath($"~/App_Data/user/{id}/picture.png");

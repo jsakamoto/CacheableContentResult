@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using Toolbelt.Web;
 
 namespace AspNetCoreSampleSite.Controllers

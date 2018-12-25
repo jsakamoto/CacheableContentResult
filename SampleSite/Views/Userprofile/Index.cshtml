@@ -6,6 +6,9 @@
 <body>
     <h2>User Profile</h2>
     <img src="@Url.Action("Picture", new {id = ViewBag.UserId })" />
+    <div>
+        <a href="@Url.Action("Index", "Home")">&lt; Go Back</a>
+    </div>
 </body>
 </html>
 
