@@ -44,7 +44,7 @@ public ActionResult Picture(int id)
 }
 ```
 
-![movie](./.asset/movie001.gif)
+![movie](https://raw.githubusercontent.com/jsakamoto/CacheableContentResult/master/.asset/movie001.gif)
 
 Return the instance of CachebleContentResult class in MVC action method specified with ETag, and/or the date time of last modified, and the function which return the binary content as byte[] to responding you want.
 
