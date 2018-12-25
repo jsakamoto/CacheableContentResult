@@ -18,16 +18,17 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     <Description>This ActionResult class for ASP.NET MVC allows you to send a binary contents response that can cache based on Etag, and/or last modified date, to web browser. If the cache hit, this class send "HTTP 304 Not Modified" without calling contents retrieving callback. / この ASP.NET MVC ActionResult クラスは Etag および 最終更新日に基づくブラウザキャッシュで制御されるコンテンツを返すことができ、キャッシュにヒットする場合は HTTP 304 Not Modified を返します。</Description>
     <Authors>J.Sakamoto</Authors>
-    <PackageReleaseNotes>v.1.1.2
-- Update license - MPL v2 and MS-PL dual licenses.
-v.1.1.1
-- Add .NET Core applications support.
-- Fix: "If-Modified-Since" based cache doesn't work correctly.
-v.1.1.0
-- If the function of GetContent property returned null, then respond "HTTP 404 Not Found" status.
-v.1.0.0
-- 1st release.
-</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      v.1.1.2
+      - Update license - MPL v2 and MS-PL dual licenses.
+      v.1.1.1
+      - Add .NET Core applications support.
+      - Fix: "If-Modified-Since" based cache doesn't work correctly.
+      v.1.1.0
+      - If the function of GetContent property returned null, then respond "HTTP 404 Not Found" status.
+      v.1.0.0
+      - 1st release.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|netstandard1.6'">
@@ -47,7 +48,7 @@ v.1.0.0
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
